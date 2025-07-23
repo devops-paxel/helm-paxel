@@ -298,7 +298,7 @@ bluegreen:
 #    enabled: true
 #    file: config.env
 configmap:
-  enabled: true
+  enabled: false
   name: paxel
   configFile:
     - name : config1

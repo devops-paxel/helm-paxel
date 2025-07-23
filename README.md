@@ -1,10 +1,5 @@
 # How To Use
 
-## Add Repo Paxel
-
-- helm repo add paxel https://raw.githubusercontent.com/devops-paxel/helm-paxel/main
-- helm repo update 
-
 ## helm add repo
 * helm repo add paxel https://raw.githubusercontent.com/devops-paxel/helm-paxel/main
 * helm repo update

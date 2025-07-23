@@ -1,0 +1,26 @@
+{{- if and .Values.cronJob.enabled .Values.cronJob.config }}
+{{- range .Values.cronJob.config }}
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: {{ include "paxel.fullname" $ }}-{{ .name }}
+spec:
+  schedule: "{{ .schedule }}"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+            - name: {{ include "paxel.fullname" $ }}-{{ .name }}
+              image: "{{ $.Values.image.repository }}:{{ $.Values.image.tag }}"
+              command: ["{{ .cmd }}"]
+              args: ["{{ .args }}"]
+              {{- with .volumeMounts }}
+              volumeMounts:
+                {{- toYaml . | nindent 16 }}
+              {{- end }}
+          restartPolicy: OnFailure
+---
+{{- end }}
+{{- end }}
+

@@ -1,0 +1,32 @@
+{{- if .Values.autoscaling.enabled }}
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: {{ include "paxel.fullname" . }}
+  labels:
+    {{- include "paxel.labels" . | nindent 4 }}
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: {{ include "paxel.fullname" . }}
+  {{- with .Values.autoscaling.behavior }}
+  behavior:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+  minReplicas: {{ .Values.autoscaling.minReplicas }}
+  maxReplicas: {{ .Values.autoscaling.maxReplicas }}
+  metrics:
+{{- with .Values.autoscaling.cpu }}
+    - type: Resource
+      resource:
+        name: cpu
+        {{- toYaml . | nindent 8 }}
+{{- end }}
+{{- with .Values.autoscaling.memory }}
+    - type: Resource
+      resource:
+        name: memory
+        {{- toYaml . | nindent 8 }}
+{{- end }}
+{{- end }}

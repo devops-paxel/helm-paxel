@@ -1,0 +1,21 @@
+{{- if .Values.configmap.enabled }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Values.configmap.name }}
+  labels:
+    {{- include "paxel.labels" . | nindent 4 }}
+data:
+  {{- range .Values.configmap.configFile }}
+    {{- if .enabled }}
+  {{ .file }}: |-
+{{ $.Files.Get (printf "files/%s" .file) | indent 4 }}
+    {{- end }}
+  {{- end }}
+
+  {{- if .Values.configmap.configEnv.enabled }}
+    {{ .Values.configmap.configEnv.file }}: |-
+{{ $.Files.Get (printf "files/%s" .Values.configmap.configEnv.file) | indent 4 }}
+  {{- end }}
+{{- end }}
+

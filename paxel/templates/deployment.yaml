@@ -1,0 +1,140 @@
+{{- if .Values.deployment.enabled -}}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "paxel.fullname" . }}
+  labels:
+    {{- include "paxel.labels" . | nindent 4 }}
+spec:
+  {{- if not .Values.autoscaling.enabled }}
+  replicas: {{ .Values.deployment.replicaCount }}
+  {{- end }}
+  selector:
+    matchLabels:
+      {{- include "paxel.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      {{- with .Values.deployment.podAnnotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      labels:
+        {{- include "paxel.labels" . | nindent 8 }}
+        {{- with .Values.deployment.podLabels }}
+        {{- toYaml . | nindent 8 }}
+        {{- end }}
+    spec:
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      serviceAccountName: {{ include "paxel.serviceAccountName" . }}
+      {{- with .Values.deployment.podSecurityContext }}
+      securityContext:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      containers:
+        - name: {{ include "paxel.fullname" . }}
+          {{- with .Values.deployment.securityContext }}
+          securityContext:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          {{- if .Values.deployment.command.enabled -}}
+          {{- with .Values.deployment.command.config }}
+            {{- toYaml . | nindent 10 }}
+          {{- end }}
+          {{- end }}
+          ports:
+            - name: http
+              containerPort: {{ .Values.service.port }}
+              protocol: TCP
+          {{- if .Values.deployment.extraPorts.enabled -}}
+          {{- with .Values.deployment.extraPorts.config }}
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+          {{- end }}
+          {{- if .Values.deployment.livenessProbe.enabled -}}
+          {{- with .Values.deployment.livenessProbe.config }}
+          livenessProbe:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+          {{- end }}
+          {{- if .Values.deployment.readinessProbe.enabled -}}
+          {{- with .Values.deployment.readinessProbe.config }}
+          readinessProbe:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+          {{- end }}
+          {{- if .Values.deployment.lifecycle.enabled -}}
+          {{- with .Values.deployment.lifecycle.config }}
+          lifecycle:
+            {{- toYaml . | nindent 10 }}
+          {{- end }}
+          {{- end }}
+          {{- if .Values.deployment.resources.enabled }}
+          {{- with .Values.deployment.resources.config }}
+          resources:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+          {{- end }}
+          {{- if .Values.deployment.enVar.env.enabled }}
+          {{- with .Values.deployment.enVar.env.config }}
+          env:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+          {{- end }}
+          {{- if .Values.deployment.enVar.envFrom.enabled }}
+          {{- with .Values.deployment.enVar.envFrom.config }}
+          envFrom:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+          {{- end }}
+          {{- with .Values.deployment.volumeMounts.config }}
+          volumeMounts:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+
+      {{- if .Values.deployment.initContainers.enabled }}
+      initContainers:
+        - name: {{ include "paxel.fullname" . }}-init
+          image: "{{ .Values.deployment.initContainers.image.repository }}:{{ .Values.deployment.initContainers.image.tag }}"
+          {{- with .Values.deployment.initContainers.command }}
+            {{- toYaml . | nindent 10 }}
+          {{- end }}
+          {{- with .Values.deployment.initContainers.resources }}
+          resources:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+          {{- with .Values.deployment.initContainers.volumeMounts }}
+          volumeMounts:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+      {{- end }}
+
+      {{- if .Values.deployment.volumes.enabled }}
+      {{- with .Values.deployment.volumes.config }}
+      volumes:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- end }}
+      {{- if .Values.deployment.nodeSelector.enabled -}}
+      {{- with .Values.deployment.nodeSelector.config }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- end }}
+      {{- if .Values.deployment.affinity.enabled }}
+      {{- with .Values.deployment.affinity.config }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- end }}
+      {{- if .Values.deployment.tolerations.enabled -}}
+      {{- with .Values.deployment.tolerations.config }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- end }}
+{{- end }}

@@ -308,18 +308,10 @@ bluegreen:
 #    enabled: true
 #    file: config.env
 configmap:
-  enabled: true
+  enabled: false
   name: paxel
-  configFile:
-    - name : config1
-      enabled: true
-      file: config1.json
-    - name : config2
-      enabled: true
-      file: config2.json 
-  configEnv:
-    enabled: true
-    file: config.env
+  configFile: {}
+  configEnv: {}
 
 secret:
   enabled: false

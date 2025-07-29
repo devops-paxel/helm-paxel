@@ -3,12 +3,12 @@ entries:
   paxel:
   - apiVersion: v2
     appVersion: 0.0.1
-    created: "2025-07-29T13:36:48.074676+07:00"
+    created: "2025-07-29T22:16:33.794536+07:00"
     description: A Helm chart for Kubernetes
-    digest: 796d3f7d777952356dc1b1d08a2a198eb9d50934960b6af70abd243deb9b3135
+    digest: 8a5521ed47d58f67638eddd6ee8e7dea129afd76582c961b39629b8a11415e8c
     name: paxel
     type: application
     urls:
     - paxel-0.0.1.tgz
     version: 0.0.1
-generated: "2025-07-29T13:36:48.073716+07:00"
+generated: "2025-07-29T22:16:33.793706+07:00"

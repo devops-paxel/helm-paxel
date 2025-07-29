@@ -22,6 +22,12 @@ deployment:
   enabled: true
   replicaCount: 1
 
+  # This is for setting Kubernetes Annotations to a deployment.
+  # Annotations:
+  #   reloader.stakater.com/auto: "true"
+  Annotations:
+    reloader.stakater.com/auto: "true"
+
   # This is for setting Kubernetes Annotations to a Pod.
   # For more information checkout: https://kubernetes.io/docs/concepts/overview/working-with-objects/annotations/
   podAnnotations: {}
@@ -237,7 +243,7 @@ deployment:
   #            path: db.conf
   volumes:
     enabled: false
-    config: {} 
+    config: {}
 
   #volumeMounts:
   #  enabled: true
@@ -302,10 +308,18 @@ bluegreen:
 #    enabled: true
 #    file: config.env
 configmap:
-  enabled: false
+  enabled: true
   name: paxel
-  configFile: {}
-  configEnv: {}
+  configFile:
+    - name : config1
+      enabled: true
+      file: config1.json
+    - name : config2
+      enabled: true
+      file: config2.json 
+  configEnv:
+    enabled: true
+    file: config.env
 
 secret:
   enabled: false
@@ -361,6 +375,14 @@ service:
   type: ClusterIP
   # This sets the ports more information can be found here: https://kubernetes.io/docs/concepts/services-networking/service/#field-spec-ports
   port: 80
+
+  #extraPorts:
+  #  enabled: true
+  #  config:
+  #    - port: 9100
+  #      targetPort: 9100
+  #      protocol: TCP
+  #      name: prometheus
   extraPorts:
     enabled: false
     config: {}

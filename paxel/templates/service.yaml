@@ -11,5 +11,10 @@ spec:
       targetPort: http
       protocol: TCP
       name: http
+    {{- if .Values.service.extraPorts.enabled -}}
+    {{- with .Values.service.extraPorts.config }}
+      {{- toYaml . | nindent 4 }}
+    {{- end }}
+    {{- end }}
   selector:
     {{- include "paxel.selectorLabels" . | nindent 4 }}

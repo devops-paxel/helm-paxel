@@ -3,6 +3,10 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: {{ include "paxel.fullname" . }}
+  annotations:
+    {{- with .Values.deployment.Annotations }}
+      {{- toYaml . | nindent 4 }}
+    {{- end }}
   labels:
     {{- include "paxel.labels" . | nindent 4 }}
 spec:

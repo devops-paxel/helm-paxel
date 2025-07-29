@@ -14,6 +14,7 @@ data:
   {{- end }}
 
   {{- if .Values.configmap.configEnv.enabled }}
+    {{ .Values.configmap.configEnv.file }}: |-
 {{ $.Files.Get (printf "files/%s" .Values.configmap.configEnv.file) | indent 2 }}
   {{- end }}
 {{- end }}

@@ -294,19 +294,23 @@ bluegreen:
   enabled: false
 
 #for this line you only can enabled 1 type config, configFile or configEnv, you can't enable both
+#sample cli
+#
+# helm template -f values.yaml paxel paxel \
+#   --set-file 'configmap.configEnv.file=kodok.env' \
+#   --set-file 'configmap.configFile[0].file=config1.json' \
+#   --set-file 'configmap.configFile[1].file=config2.json'
+#
 #configmap:
 #  enabled: true
 #  name: paxel
 #  configFile:
-#    - name : config1
-#      enabled: true
-#      file: config1.json
-#    - name : config2
-#      enabled: false
-#      file: config2.json
+#    - name: config1.json
+#      file: ""
+#    - name: config2.json
+#      file: ""
 #  configEnv:
-#    enabled: true
-#    file: config.env
+#    file: ""
 configmap:
   enabled: false
   name: paxel

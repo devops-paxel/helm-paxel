@@ -1,7 +1,0 @@
-{
-  "appName": "my-service-kodok",
-  "port": 8080,
-  "debug": true,
-  "logLevel": "info",
-  "timeout": 30
-}

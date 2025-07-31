@@ -39,7 +39,7 @@ helm.sh/chart: {{ include "paxel.chart" . }}
 app.kubernetes.io/version: {{ .Values.image.tag }}
 {{- end }}
 app.kubernetes.io/managed-by: {{ .Release.Service }}
-app.kubernetes.io/deployment-time: "{{ now | mustDateModify "+7h" | date "2006-01-02T15:04:05" }}"
+app.kubernetes.io/deployment-time: "{{ now | mustDateModify "+7h" | date "2006-01-02T15_04_05" }}"
 {{- end }}
 
 {{/*

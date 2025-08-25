@@ -32,7 +32,6 @@ spec:
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}
       {{- end }}
-      serviceAccountName: {{ include "paxel.serviceAccountName" . }}
       {{- with .Values.deployment.podSecurityContext }}
       securityContext:
         {{- toYaml . | nindent 8 }}
@@ -74,7 +73,7 @@ spec:
           {{- if .Values.deployment.lifecycle.enabled -}}
           {{- with .Values.deployment.lifecycle.config }}
           lifecycle:
-            {{- toYaml . | nindent 10 }}
+            {{- toYaml . | nindent 12 }}
           {{- end }}
           {{- end }}
           {{- if .Values.deployment.resources.enabled }}

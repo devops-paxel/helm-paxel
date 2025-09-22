@@ -1,5 +1,9 @@
 # How To Use
 
+## helm chart update
+* helm package paxel --version 0.0.1
+* helm repo index . 
+
 ## helm add repo
 * helm repo add paxel https://raw.githubusercontent.com/devops-paxel/helm-paxel/main
 * helm repo update

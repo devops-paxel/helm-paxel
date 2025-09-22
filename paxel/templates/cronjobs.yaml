@@ -9,17 +9,39 @@ spec:
   jobTemplate:
     spec:
       template:
+        metadata:
+          labels:
+            {{- include "paxel.labels" $ | nindent 12 }}
         spec:
           containers:
-            - name: {{ include "paxel.fullname" $ }}-{{ .name }}
-              image: "{{ $.Values.image.repository }}:{{ $.Values.image.tag }}"
-              command: ["{{ .cmd }}"]
-              args: ["{{ .args }}"]
-              {{- with .volumeMounts }}
-              volumeMounts:
-                {{- toYaml . | nindent 16 }}
-              {{- end }}
+          - name: {{ include "paxel.fullname" $ }}-{{ .name }}
+            image: "{{ $.Values.image.repository }}:{{ $.Values.image.tag }}"
+            imagePullPolicy: IfNotPresent
+            command: ["{{ .cmd }}"]
+            args: ["{{ .args }}"]
+            {{- with .volumeMounts }}
+            volumeMounts:
+              {{- toYaml . | nindent 14 }}
+            {{- end }}
           restartPolicy: OnFailure
+          {{- if $.Values.cronJob.volumes.enabled }}
+          {{- with $.Values.cronJob.volumes.config }}
+          volumes:
+            {{- toYaml . | nindent 10 }}
+          {{- end }}
+          {{- end }}
+          {{- if $.Values.cronJob.nodeSelector.enabled -}}
+          {{- with $.Values.cronJob.nodeSelector.config }}
+          nodeSelector:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+          {{- end }}
+          {{- if $.Values.cronJob.tolerations.enabled -}}
+          {{- with $.Values.cronJob.tolerations.config }}
+          tolerations:
+            {{- toYaml . | nindent 10 }}
+          {{- end }}
+          {{- end }}
 ---
 {{- end }}
 {{- end }}

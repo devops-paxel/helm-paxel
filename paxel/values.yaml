@@ -355,7 +355,57 @@ keda:
 #      args: 10s
 cronJob:
   enabled: false
-  config: {} 
+  config: {}
+
+  #volumes:
+  #  enabled: true
+  #  config:
+  #    - name: shared-data
+  #      emptyDir: {}
+  #    - name: nfs-volume
+  #      nfs:
+  #        server: 10.10.10.45
+  #        path: /exports/shared
+  #    - name: pvc-volume
+  #      persistentVolumeClaim:
+  #        claimName: example-pvc
+  #    - name: config-volume
+  #      configMap:
+  #        name: app-config
+  #        items:
+  #          - key: app.conf
+  #            path: app.conf
+  #    - name: config-file
+  #      configMap:
+  #        name: paxel
+  #    - name: secret-volume
+  #      secret:
+  #        secretName: app-secret
+  #        items:
+  #          - key: db.conf
+  #            path: db.conf
+  volumes:
+    enabled: false
+    config: {}
+
+  #nodeSelector:
+  #  enabled: true
+  #  config:
+  #    service: "paxel"
+  nodeSelector:
+    enabled: false
+    config: {}
+
+  #tolerations:
+  #  enabled: true
+  #  config:
+  #    - key: "service"
+  #      operator: "Equal"
+  #      value: "paxel"
+  #      effect: "NoSchedule"
+  tolerations:
+    enabled: false
+    config: {}
 
 Job:
   enabled: false

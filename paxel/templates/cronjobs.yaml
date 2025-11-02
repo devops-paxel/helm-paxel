@@ -6,6 +6,7 @@ metadata:
   name: {{ include "paxel.fullname" $ }}-{{ .name }}
 spec:
   schedule: "{{ .schedule }}"
+  suspend: "{{ .suspend }}"
   jobTemplate:
     spec:
       template:

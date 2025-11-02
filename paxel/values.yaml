@@ -341,6 +341,7 @@ keda:
 #  config:
 #    - name: cron1
 #      schedule: "*/5 * * * *"
+#      suspend: false
 #      cmd: sleep
 #      args: 10s
 #      volumeMounts:
@@ -351,6 +352,7 @@ keda:
 #          readOnly: true
 #    - name: cron2
 #      schedule: "*/2 * * * *"
+#      suspend: false
 #      cmd: sleep
 #      args: 10s
 cronJob:

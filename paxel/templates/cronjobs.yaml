@@ -18,8 +18,14 @@ spec:
           - name: {{ include "paxel.fullname" $ }}-{{ .name }}
             image: "{{ $.Values.image.repository }}:{{ $.Values.image.tag }}"
             imagePullPolicy: IfNotPresent
-            command: ["{{ .cmd }}"]
-            args: ["{{ .args }}"]
+            {{- if .command }}
+            command:
+              {{- toYaml .command | nindent 14 }}
+            {{- end }}
+            {{- if .args }}
+            args:
+              {{- toYaml .args | nindent 14 }}
+            {{- end }}
             {{- with .volumeMounts }}
             volumeMounts:
               {{- toYaml . | nindent 14 }}

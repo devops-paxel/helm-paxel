@@ -342,19 +342,22 @@ keda:
 #    - name: cron1
 #      schedule: "*/5 * * * *"
 #      suspend: false
-#      cmd: sleep
-#      args: 10s
+#      command:
+#        - sh
+#      args:
+#        - -c
+#        - ./paxel cron1
 #      volumeMounts:
-#        - name: shared-data
-#          mountPath: /usr/share/nginx/html/data
-#        - name: config-volume
-#          mountPath: /etc/app-config
-#          readOnly: true
+#        - name: paxel
+#          mountPath: /app/config.json
+#          subPath: config.json
 #    - name: cron2
-#      schedule: "*/2 * * * *"
+#      schedule: "*/5 * * * *"
 #      suspend: false
-#      cmd: sleep
-#      args: 10s
+#      volumeMounts:
+#        - name: paxel
+#          mountPath: /app/config.json
+#          subPath: config.json
 cronJob:
   enabled: false
   config: {}

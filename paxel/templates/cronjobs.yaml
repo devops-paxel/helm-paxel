@@ -13,6 +13,7 @@ spec:
         metadata:
           labels:
             {{- include "paxel.labels" $ | nindent 12 }}
+            app.kubernetes.io/cronjob-name: {{ include "paxel.fullname" $ }}-{{ .name }}
         spec:
           containers:
           - name: {{ include "paxel.fullname" $ }}-{{ .name }}
@@ -21,6 +22,10 @@ spec:
             {{- if .command }}
             command:
               {{- toYaml .command | nindent 14 }}
+            {{- end }}
+            {{- with .resources }}
+            resources:
+              {{- toYaml . | nindent 14 }}
             {{- end }}
             {{- if .args }}
             args:

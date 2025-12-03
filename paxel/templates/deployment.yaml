@@ -94,9 +94,11 @@ spec:
             {{- toYaml . | nindent 12 }}
           {{- end }}
           {{- end }}
+          {{- if .Values.deployment.volumeMounts.enabled }}
           {{- with .Values.deployment.volumeMounts.config }}
           volumeMounts:
             {{- toYaml . | nindent 12 }}
+          {{- end }}
           {{- end }}
 
       {{- if .Values.deployment.initContainers.enabled }}

@@ -1,0 +1,13 @@
+{{- if .Values.pdb.enabled -}}
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: {{ include "paxel.fullname" . }}
+spec:
+  {{- with .Values.pdb.config }}
+    {{- toYaml . | nindent 2 }}
+  {{- end }}
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: {{ include "paxel.fullname" . }}
+{{- end }}

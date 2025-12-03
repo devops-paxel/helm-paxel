@@ -330,8 +330,15 @@ secret:
   name: paxel
   file: {}
 
+#pdb
+#  enabled: true
+#  #please chose only one betwen maxUnavailable or minAvailable
+#  config:
+#    maxUnavailable: 1
+#    minAvailable: 1
 pdb:
   enabled: false
+  config: {}
 
 keda:
   enabled: false
@@ -347,6 +354,13 @@ keda:
 #      args:
 #        - -c
 #        - ./paxel cron1
+#      resource:
+#        limits:
+#          cpu: 800m
+#          memory: 800Mi
+#        requests:
+#          cpu: 400m
+#          memory: 400Mi
 #      volumeMounts:
 #        - name: paxel
 #          mountPath: /app/config.json

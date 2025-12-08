@@ -298,6 +298,14 @@ deployment:
       enabled: false
       config: {}
 
+#for get storageClassName, you can run this cli on k8s cluster "kubectl get sc"
+#pvc:
+#  enabled: true
+#  size: "10Gi"
+#  storageClass: "standard-rwo"
+pvc:
+  enabled: false
+
 bluegreen:
   enabled: false
 

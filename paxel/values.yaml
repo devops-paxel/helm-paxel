@@ -304,9 +304,7 @@ deployment:
 #  size: "10Gi"
 #  storageClass: "standard-rwo"
 pvc:
-  enabled: true
-  size: "10Gi"
-  storageClass: "standard-rwo"
+  enabled: false
 
 bluegreen:
   enabled: false

@@ -5,7 +5,7 @@ kind: CronJob
 metadata:
   name: {{ include "paxel.fullname" $ }}-{{ .name }}
   labels:
-    {{- include "paxel.labels" . | nindent 4 }}
+    {{- include "paxel.labels" $ | nindent 4 }}
 spec:
   schedule: "{{ .schedule }}"
   suspend: {{ .suspend }}

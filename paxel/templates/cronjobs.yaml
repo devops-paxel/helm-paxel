@@ -9,6 +9,7 @@ metadata:
 spec:
   schedule: "{{ .schedule }}"
   suspend: {{ .suspend }}
+  concurrencyPolicy: {{ $.Values.cronJob.concurrencyPolicy }}
   jobTemplate:
     spec:
       template:

@@ -353,6 +353,7 @@ keda:
 
 #cronJob:
 #  enabled: false
+#  concurrencyPolicy: Forbid
 #  config:
 #    - name: cron1
 #      schedule: "*/5 * * * *"
@@ -382,6 +383,7 @@ keda:
 #          subPath: config.json
 cronJob:
   enabled: false
+  concurrencyPolicy: Forbid
   config: {}
 
   #volumes:

@@ -51,6 +51,12 @@ spec:
             {{- toYaml . | nindent 12 }}
           {{- end }}
           {{- end }}
+          {{- if $.Values.cronJob.affinity.enabled }}
+          {{- with $.Values.cronJob.affinity.config }}
+          affinity:
+            {{- toYaml . | nindent 10 }}
+          {{- end }}
+          {{- end }}
           {{- if $.Values.cronJob.tolerations.enabled -}}
           {{- with $.Values.cronJob.tolerations.config }}
           tolerations:

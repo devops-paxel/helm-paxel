@@ -106,7 +106,7 @@ deployment:
 
   #how to add affinity on deployment manifest
   #affinity:
-  #  enabled: false
+  #  enabled: true
   #  config:
   #    podAntiAffinity:
   #      requiredDuringSchedulingIgnoredDuringExecution:
@@ -384,6 +384,32 @@ keda:
 cronJob:
   enabled: false
   concurrencyPolicy: Forbid
+  #config:
+  #  - name: auto-refund-late-shipment
+  #    schedule: "*/3 * * * *"
+  #    suspend: false
+  #    command:
+  #      - sh
+  #    args:
+  #      - -c
+  #      - ./airpaxcommand autoRefundLateShipment
+  #    volumeMounts:
+  #      - name: airpax-command
+  #        mountPath: /app/config.json
+  #        subPath: config.json
+  #  - name: bulk-hero-type
+  #    schedule: "0 20 * * *"
+  #    suspend: false
+  #    command:
+  #      - sh
+  #    args:
+  #      - -c
+  #      - ./airpaxcommand bulkHeroType
+  #    volumeMounts:
+  #      - name: airpax-command
+  #        mountPath: /app/config.json
+  #        subPath: config.json
+  #config: {}
   config: {}
 
   #volumes:
@@ -422,6 +448,34 @@ cronJob:
   #  config:
   #    service: "paxel"
   nodeSelector:
+    enabled: false
+    config: {}
+
+  #how to add affinity on cronjobs manifest
+  #affinity:
+  #  enabled: true
+  #  config:
+  #    podAntiAffinity:
+  #      requiredDuringSchedulingIgnoredDuringExecution:
+  #        - labelSelector:
+  #            matchExpressions:
+  #              - key: app.kubernetes.io/name
+  #                operator: In
+  #                values:
+  #                  - paxel
+  #          topologyKey: "kubernetes.io/hostname"
+  #    podAntiAffinity:
+  #      preferredDuringSchedulingIgnoredDuringExecution:
+  #        - weight: 100
+  #          podAffinityTerm:
+  #            labelSelector:
+  #              matchExpressions:
+  #                - key: app.kubernetes.io/name
+  #                  operator: In
+  #                  values:
+  #                    - paxel
+  #            topologyKey: "kubernetes.io/hostname"
+  affinity:
     enabled: false
     config: {}
 

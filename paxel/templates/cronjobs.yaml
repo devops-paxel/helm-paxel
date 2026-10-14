@@ -10,6 +10,7 @@ spec:
   schedule: "{{ .schedule }}"
   suspend: {{ .suspend }}
   concurrencyPolicy: {{ $.Values.cronJob.concurrencyPolicy }}
+  startingDeadlineSeconds: {{ $.Values.cronJob.startingDeadlineSeconds }}
   jobTemplate:
     spec:
       template:

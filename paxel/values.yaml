@@ -384,6 +384,7 @@ keda:
 cronJob:
   enabled: false
   concurrencyPolicy: Forbid
+  startingDeadlineSeconds: 600
   #config:
   #  - name: auto-refund-late-shipment
   #    schedule: "*/3 * * * *"
@@ -409,7 +410,6 @@ cronJob:
   #      - name: airpax-command
   #        mountPath: /app/config.json
   #        subPath: config.json
-  #config: {}
   config: {}
 
   #volumes:
